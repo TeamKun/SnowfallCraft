@@ -9,6 +9,9 @@ commands:
   snowfall:
     description: 降雪する
     usage: |
-      /snowfall start 降雪開始。
-      /snowfall stop 降雪終了。
+      /snowfall start 降雪開始
+      /snowfall stop 降雪終了
+      /snowfall player <player> 降雪対象プレイヤーの設定
+      /snowfall radius <number> 降雪半径の設定
+      /snowfall amount <number> 降雪量の設定
     permission: op

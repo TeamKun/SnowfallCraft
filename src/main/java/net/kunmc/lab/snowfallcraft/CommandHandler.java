@@ -58,15 +58,15 @@ public class CommandHandler implements CommandExecutor {
                                 break;
                             case Config.COMMAND_RADIUS:
                                 if (Integer.parseInt(args[1]) < 1) {
-                                    sender.sendMessage("設定値は1以上の整数である必要があります。");
+                                    sender.sendMessage("降雪半径は1以上の整数である必要があります。");
                                     return false;
                                 }
                                 Config.radius = Integer.parseInt(args[1]);
-                                sender.sendMessage("半径： " + Config.radius);
+                                sender.sendMessage("降雪半径： " + Config.radius);
                                 break;
                             case Config.COMMAND_AMOUNT:
                                 if (Integer.parseInt(args[1]) < 1) {
-                                    sender.sendMessage("設定値は1以上の整数である必要があります。");
+                                    sender.sendMessage("降雪量は1以上の整数である必要があります。");
                                     return false;
                                 }
                                 Config.amount = Integer.parseInt(args[1]);

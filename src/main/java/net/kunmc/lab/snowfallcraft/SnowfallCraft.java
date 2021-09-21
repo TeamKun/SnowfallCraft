@@ -20,6 +20,8 @@ public final class SnowfallCraft extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        getLogger().info("SnowfallCraftプラグインが有効になりました。");
+
         BukkitRunnable mainTask = new BukkitRunnable() {
             @Override
             public void run() {
@@ -46,7 +48,7 @@ public final class SnowfallCraft extends JavaPlugin {
                 }
             }
         };
-        mainTask.runTaskTimer(this, 1L, 10L);
+        mainTask.runTaskTimer(this, 1L, 1L);
 
         Objects.requireNonNull(getCommand(Config.MAIN_COMMAND)).setExecutor(new CommandHandler());
         Objects.requireNonNull(getCommand(Config.MAIN_COMMAND)).setTabCompleter(new TabComplete());
@@ -56,5 +58,6 @@ public final class SnowfallCraft extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        getLogger().info("SnowfallCraftプラグインが無効になりました。");
     }
 }
