@@ -1,0 +1,14 @@
+name: SnowfallCraft
+version: ${project.version}
+main: net.kunmc.lab.snowfallcraft.SnowfallCraft
+api-version: 1.16
+authors: [ CANIS ]
+description: 降雪プラグイン
+
+commands:
+  snowfall:
+    description: 降雪する
+    usage: |
+      /snowfall start 降雪開始。
+      /snowfall stop 降雪終了。
+    permission: op
