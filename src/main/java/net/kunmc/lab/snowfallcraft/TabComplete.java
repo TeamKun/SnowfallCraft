@@ -8,7 +8,6 @@ import org.bukkit.entity.HumanEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -24,7 +23,8 @@ public class TabComplete implements TabCompleter {
                 completions.add(Config.COMMAND_STOP);
                 completions.add(Config.COMMAND_PLAYER);
                 completions.add(Config.COMMAND_RADIUS);
-                completions.add(Config.COMMAND_AMOUNT);
+                /*completions.add(Config.COMMAND_AMOUNT);*/
+                completions.add(Config.COMMAND_PERIOD);
                 completions.removeIf(e -> !e.startsWith(args[0].toLowerCase(Locale.ROOT)));
                 break;
             case 2:
@@ -35,7 +35,8 @@ public class TabComplete implements TabCompleter {
                         completions.removeIf(e -> !e.toLowerCase(Locale.ROOT).startsWith(args[1].toLowerCase(Locale.ROOT)));
                         break;
                     case Config.COMMAND_RADIUS:
-                    case Config.COMMAND_AMOUNT:
+                        /*case Config.COMMAND_AMOUNT:*/
+                    case Config.COMMAND_PERIOD:
                         completions.add("<number>");
                         break;
                 }

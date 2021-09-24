@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class CommandHandler implements CommandExecutor {
     @Override
@@ -32,14 +31,15 @@ public class CommandHandler implements CommandExecutor {
                     break;
                 case Config.COMMAND_PLAYER:
                 case Config.COMMAND_RADIUS:
-                case Config.COMMAND_AMOUNT:
+                    /*case Config.COMMAND_AMOUNT:*/
+                case Config.COMMAND_PERIOD:
                     if (args.length < 2) {
                         sender.sendMessage("引数が不足しています。");
                         return false;
                     } else {
                         switch (args[0]) {
                             case Config.COMMAND_PLAYER:
-                                if (args[1].equals("@r")){
+                                if (args[1].equals("@r")) {
                                     ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
                                     Random random = new Random();
                                     Config.player = players.get(random.nextInt(players.size()));
@@ -47,7 +47,7 @@ public class CommandHandler implements CommandExecutor {
                                     break;
                                 } else {
                                     Player player = Bukkit.getPlayer(args[1]);
-                                    if (player != null){
+                                    if (player != null) {
                                         Config.player = player;
                                         sender.sendMessage("降雪対象プレイヤー： " + Config.player.getName());
                                     } else {
@@ -64,13 +64,21 @@ public class CommandHandler implements CommandExecutor {
                                 Config.radius = Integer.parseInt(args[1]);
                                 sender.sendMessage("降雪半径： " + Config.radius);
                                 break;
-                            case Config.COMMAND_AMOUNT:
+                            /*case Config.COMMAND_AMOUNT:
                                 if (Integer.parseInt(args[1]) < 1) {
                                     sender.sendMessage("降雪量は1以上の整数である必要があります。");
                                     return false;
                                 }
                                 Config.amount = Integer.parseInt(args[1]);
                                 sender.sendMessage("降雪量： " + Config.amount);
+                                break;*/
+                            case Config.COMMAND_PERIOD:
+                                if (Integer.parseInt(args[1]) < 1) {
+                                    sender.sendMessage("降雪間隔は1以上の整数である必要があります。");
+                                    return false;
+                                }
+                                Config.period = Integer.parseInt(args[1]);
+                                sender.sendMessage("降雪間隔： " + Config.period);
                                 break;
                         }
                     }

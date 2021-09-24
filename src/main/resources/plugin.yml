@@ -13,5 +13,5 @@ commands:
       /snowfall stop 降雪終了
       /snowfall player <player> 降雪対象プレイヤーの設定
       /snowfall radius <number> 降雪半径の設定
-      /snowfall amount <number> 降雪量の設定
+      /snowfall period <number> 降雪間隔の設定
     permission: op
