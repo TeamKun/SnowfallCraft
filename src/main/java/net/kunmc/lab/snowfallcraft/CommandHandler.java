@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -23,15 +25,22 @@ public class CommandHandler implements CommandExecutor {
                 case Config.COMMAND_START:
                     Config.onWorking = true;
                     sender.sendMessage("降雪開始");
-                    if (Config.player == null) sender.sendMessage("降雪対象プレイヤーが設定されるまで降雪しません。");
+                    if (Config.uuid == null) sender.sendMessage("降雪対象プレイヤーが設定されるまで降雪しません。");
                     break;
                 case Config.COMMAND_STOP:
                     Config.onWorking = false;
                     sender.sendMessage("降雪終了");
                     break;
+                case Config.COMMAND_CONFIG:
+                    sender.sendMessage("***SnowfallCraft 設定値一覧***");
+                    sender.sendMessage(Config.onWorking ? "降雪状態： 降雪中" : "降雪状態： 停止中");
+                    String message = Config.uuid != null ? getServer().getPlayer(Config.uuid).getName() : "未設定";
+                    sender.sendMessage("降雪対象プレイヤー： " + message);
+                    sender.sendMessage("降雪半径： " + Config.radius);
+                    sender.sendMessage("降雪間隔： " + Config.period);
+                    break;
                 case Config.COMMAND_PLAYER:
                 case Config.COMMAND_RADIUS:
-                    /*case Config.COMMAND_AMOUNT:*/
                 case Config.COMMAND_PERIOD:
                     if (args.length < 2) {
                         sender.sendMessage("引数が不足しています。");
@@ -42,14 +51,14 @@ public class CommandHandler implements CommandExecutor {
                                 if (args[1].equals("@r")) {
                                     ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
                                     Random random = new Random();
-                                    Config.player = players.get(random.nextInt(players.size()));
-                                    sender.sendMessage("降雪対象プレイヤー： " + Config.player.getName());
+                                    Config.uuid = players.get(random.nextInt(players.size())).getUniqueId();
+                                    sender.sendMessage("降雪対象プレイヤー： " + getServer().getPlayer(Config.uuid).getName());
                                     break;
                                 } else {
                                     Player player = Bukkit.getPlayer(args[1]);
                                     if (player != null) {
-                                        Config.player = player;
-                                        sender.sendMessage("降雪対象プレイヤー： " + Config.player.getName());
+                                        Config.uuid = player.getUniqueId();
+                                        sender.sendMessage("降雪対象プレイヤー： " + getServer().getPlayer(Config.uuid).getName());
                                     } else {
                                         sender.sendMessage("存在しないプレイヤーです。");
                                         return false;
@@ -64,14 +73,6 @@ public class CommandHandler implements CommandExecutor {
                                 Config.radius = Integer.parseInt(args[1]);
                                 sender.sendMessage("降雪半径： " + Config.radius);
                                 break;
-                            /*case Config.COMMAND_AMOUNT:
-                                if (Integer.parseInt(args[1]) < 1) {
-                                    sender.sendMessage("降雪量は1以上の整数である必要があります。");
-                                    return false;
-                                }
-                                Config.amount = Integer.parseInt(args[1]);
-                                sender.sendMessage("降雪量： " + Config.amount);
-                                break;*/
                             case Config.COMMAND_PERIOD:
                                 if (Integer.parseInt(args[1]) < 1) {
                                     sender.sendMessage("降雪間隔は1以上の整数である必要があります。");

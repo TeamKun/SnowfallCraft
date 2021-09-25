@@ -22,9 +22,6 @@ public final class SnowfallCraft extends JavaPlugin {
         // Plugin startup logic
         getLogger().info("SnowfallCraftプラグインが有効になりました。");
 
-        /*MainTask mainTask = new MainTask(this);
-        mainTask.runTaskTimerAsynchronously(this, 0, 1);*/
-
         Objects.requireNonNull(getCommand(Config.MAIN_COMMAND)).setExecutor(new CommandHandler());
         Objects.requireNonNull(getCommand(Config.MAIN_COMMAND)).setTabCompleter(new TabComplete());
 
@@ -38,32 +35,27 @@ public final class SnowfallCraft extends JavaPlugin {
                     count = 0;
                     if (Config.onWorking) {
                         Integer radius = Config.radius;
-                        Integer amount = Config.amount;
-                        Player player = Config.player;
+                        Player player = getServer().getPlayer(Config.uuid);
                         if (player != null && player.isOnline()) {
                             Location location = player.getLocation();
-                            for (int i = 0; i < amount; i++) {
-                                Double radian = Math.toRadians(Math.random() * 360);
-                                Double distance = Math.random() * radius;
-                                location.add(Math.cos(radian) * distance, 0, Math.sin(radian) * distance);
-                                location.set(Math.floor(location.getX()) + 0.5, Math.floor(location.getY()), Math.floor(location.getZ()) + 0.5);
-                                Integer highest = location.getWorld().getHighestBlockYAt(location);
-                                if (player.getLocation().getY() > highest) {
-                                    location.setY(player.getLocation().getY() + 25 + Math.random() * 25);
-                                } else {
-                                    location.setY(location.getWorld().getHighestBlockYAt(location) + 25 + Math.random() * 25);
-                                }
-                                if (location.getY() > 254) location.setY(255);
-                                /*BlockData blockData = Bukkit.createBlockData(Material.SNOW_BLOCK);*/
-                                /*location.getWorld().spawnFallingBlock(location, blockData);*/
-
-                                new BukkitRunnable() {
-                                    @Override
-                                    public void run() {
-                                        location.getWorld().spawnFallingBlock(location, Material.SNOW_BLOCK.createBlockData());
-                                    }
-                                }.runTask(SnowfallCraft);
+                            double radian = Math.toRadians(Math.random() * 360);
+                            double distance = Math.random() * radius;
+                            location.add(Math.cos(radian) * distance, 0, Math.sin(radian) * distance);
+                            location.set(Math.floor(location.getX()) + 0.5, Math.floor(location.getY()), Math.floor(location.getZ()) + 0.5);
+                            int highest = location.getWorld().getHighestBlockYAt(location);
+                            if (player.getLocation().getY() > highest) {
+                                location.setY(player.getLocation().getY() + 25 + Math.random() * 25);
+                            } else {
+                                location.setY(location.getWorld().getHighestBlockYAt(location) + 25 + Math.random() * 25);
                             }
+                            if (location.getY() > 254) location.setY(255);
+
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    location.getWorld().spawnFallingBlock(location, Material.SNOW_BLOCK.createBlockData());
+                                }
+                            }.runTask(SnowfallCraft);
                         }
                     }
                 }

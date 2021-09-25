@@ -21,21 +21,20 @@ public class TabComplete implements TabCompleter {
             case 1:
                 completions.add(Config.COMMAND_START);
                 completions.add(Config.COMMAND_STOP);
+                completions.add(Config.COMMAND_CONFIG);
                 completions.add(Config.COMMAND_PLAYER);
                 completions.add(Config.COMMAND_RADIUS);
-                /*completions.add(Config.COMMAND_AMOUNT);*/
                 completions.add(Config.COMMAND_PERIOD);
                 completions.removeIf(e -> !e.startsWith(args[0].toLowerCase(Locale.ROOT)));
                 break;
             case 2:
-                switch (args[0]){
+                switch (args[0]) {
                     case Config.COMMAND_PLAYER:
                         completions.addAll(Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).collect(Collectors.toList()));
                         completions.add(0, "@r");
                         completions.removeIf(e -> !e.toLowerCase(Locale.ROOT).startsWith(args[1].toLowerCase(Locale.ROOT)));
                         break;
                     case Config.COMMAND_RADIUS:
-                        /*case Config.COMMAND_AMOUNT:*/
                     case Config.COMMAND_PERIOD:
                         completions.add("<number>");
                         break;
